@@ -12,6 +12,7 @@ import { ScorecardTable } from '@/components/ScorecardTable'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Share2, ExternalLink, RefreshCw, Trophy } from 'lucide-react'
 import { toast } from 'sonner'
+import { toAbsoluteUrl } from '@/lib/site-url'
 
 type MatchBall = {
   id: string
@@ -180,7 +181,7 @@ export default function MatchPage() {
   }, [id])
 
   function shareMatch() {
-    const url = window.location.href
+    const url = toAbsoluteUrl(`/match/${id as string}`)
     if (navigator.share) {
       navigator.share({ title: `${match?.team_a_data?.name} vs ${match?.team_b_data?.name}`, url })
     } else {

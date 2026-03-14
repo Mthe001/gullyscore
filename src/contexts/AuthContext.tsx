@@ -5,6 +5,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import type { User as SupabaseAuthUser } from '@supabase/supabase-js'
 import type { User } from '@/lib/types'
 import { supabase } from '@/lib/supabase'
+import { toAbsoluteUrl } from '@/lib/site-url'
 
 interface AuthContextType {
   user: User | null
@@ -117,8 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       password,
       options: {
         data: { name },
-        emailRedirectTo:
-          typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : undefined,
+        emailRedirectTo: toAbsoluteUrl('/auth/callback'),
       },
     })
     return { error: error?.message || null }
@@ -128,7 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: toAbsoluteUrl('/auth/callback'),
       },
     })
     return { error: error?.message || null }

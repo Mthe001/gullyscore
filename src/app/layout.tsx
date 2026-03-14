@@ -3,11 +3,13 @@ import './globals.css'
 import { Providers } from '@/components/Providers'
 import { Footer } from '@/components/Footer'
 import { DynamicTitle } from '@/components/DynamicTitle'
+import { getSiteUrl } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'GullyScore Pro - Cricket Scoring App',
   description:
     'Professional real-time gully cricket scoring platform. Track live scores, player stats, leaderboards and tournaments.',
+  metadataBase: new URL(getSiteUrl()),
   manifest: '/manifest.json',
   icons: {
     icon: [
@@ -26,6 +28,7 @@ export const metadata: Metadata = {
     title: 'GullyScore Pro',
     description: 'Real-time gully cricket scoring system',
     type: 'website',
+    url: getSiteUrl(),
   },
 }
 
