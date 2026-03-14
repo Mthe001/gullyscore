@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: hsl(263 70% 50%);
+  --color-primary-foreground: hsl(210 20% 98%);
+  
+  --color-accent: hsl(168 100% 41%);
+  --color-accent-foreground: hsl(240 6% 10%);
+  
+  --color-background: hsl(240 10% 4%);
+  --color-foreground: hsl(0 0% 98%);
+  
+  --color-card: hsl(240 10% 5%);
+  --color-card-foreground: hsl(0 0% 98%);
+  
+  --color-popover: hsl(240 10% 4%);
+  --color-popover-foreground: hsl(0 0% 98%);
+  
+  --color-muted: hsl(240 4% 16%);
+  --color-muted-foreground: hsl(240 5% 65%);
+  
+  --color-border: hsl(240 4% 16%);
+  --color-input: hsl(240 4% 16%);
+  --color-ring: hsl(263 70% 50%);
+}
+
+/* Shadcn Compatibility Variables */
+:root {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 5%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 4%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 263 70% 50%;
+  --primary-foreground: 210 20% 98%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 168 100% 41%;
+  --accent-foreground: 240 6% 10%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 263 70% 50%;
+  --radius: 0.75rem;
+  color-scheme: dark;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Outfit', sans-serif;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(at 0% 0%, hsla(263, 70%, 50%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(168, 100%, 41%, 0.05) 0px, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Native select readability */
+select,
+option,
+optgroup {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+select:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Premium UI Patterns */
+.glass {
+  background: hsla(240, 10% , 5%, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsla(0, 0%, 100%, 0.08);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, hsla(240, 10%, 8%, 0.5), hsla(240, 10%, 4%, 0.5));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsla(0, 0%, 100%, 0.05);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, hsl(263, 70%, 75%) 50%, hsl(168, 100%, 65%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(263 70% 50%), hsl(280 80% 60%));
+}
+
+.gradient-hero {
+  background: radial-gradient(circle at 50% 50%, hsla(263, 70%, 50%, 0.15) 0%, transparent 60%);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.5); }
+}
+
+.live-glow {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444;
+  border-radius: 9999px;
+  box-shadow: 0 0 10px #ef4444;
+}
+
+.live-glow::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background-color: #ef4444;
+  opacity: 0.4;
+  animation: pulse 2s infinite;
+}
+
+/* Utility overrides - since TW might be flaky */
+.hidden { display: none !important; }
+@media (min-width: 640px) { .sm\:block { display: block !important; } }
+@media (min-width: 768px) { .md\:flex { display: flex !important; } .md\:hidden { display: none !important; } .md\:block { display: block !important; } }
+@media (min-width: 1024px) { .lg\:flex { display: flex !important; } .lg\:hidden { display: none !important; } .lg\:block { display: block !important; } }
+
+/* Scoring Buttons */
+.score-btn {
+  @apply rounded-2xl font-black transition-all active:scale-95 flex items-center justify-center shadow-lg border border-white/5;
+  background: hsla(240, 10%, 10%, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.score-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(280 80% 60%)) !important;
+  color: white !important;
+  box-shadow: 0 8px 20px -4px hsla(263, 70%, 50%, 0.4);
+}
+
+.score-accent {
+  background: linear-gradient(135deg, hsl(var(--accent)), #009980) !important;
+  color: black !important;
+  box-shadow: 0 8px 20px -4px hsla(168, 100%, 41%, 0.4);
+}
+
+.score-danger {
+  background: linear-gradient(135deg, #ef4444, #991b1b) !important;
+  color: white !important;
+  box-shadow: 0 8px 20px -4px rgba(239, 68, 68, 0.4);
+}
+
+/* Page Transitions & Layout */
+.page-header {
+  @apply pt-24 pb-12 px-4 max-w-4xl mx-auto;
+}
+
+.section-padding {
+  @apply py-12 md:py-20;
+}
+
+/* Fix for mobile Safari height */
+.min-h-screen {
+  min-height: 100dvh !important;
+}
