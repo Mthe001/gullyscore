@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { toAbsoluteUrl } from '@/lib/site-url'
 
 export default function AuthCallback() {
   const router = useRouter()
@@ -12,7 +13,12 @@ export default function AuthCallback() {
     let fallbackTimeout: ReturnType<typeof setTimeout> | undefined
 
     const finish = (path: '/' | '/auth') => {
-      if (isActive) {
+      const target = toAbsoluteUrl(path)
+      if (!isActive || typeof window === 'undefined') return
+
+      if (window.location.origin !== new URL(target).origin) {
+        window.location.replace(target)
+      } else {
         router.replace(path)
       }
     }

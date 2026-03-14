@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useAuth } from '@/contexts/AuthContext'
 import { Mail, Lock, User, Eye, EyeOff, Zap } from 'lucide-react'
 import { toast } from 'sonner'
+import { toAbsoluteUrl } from '@/lib/site-url'
 
 export default function AuthPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin')
@@ -27,7 +28,12 @@ export default function AuthPage() {
         toast.error(error)
       } else {
         toast.success('Welcome back!')
-        router.push('/')
+        const target = toAbsoluteUrl('/')
+        if (typeof window !== 'undefined' && window.location.origin !== new URL(target).origin) {
+          window.location.replace(target)
+        } else {
+          router.push('/')
+        }
       }
     } else {
       if (!name.trim()) {
